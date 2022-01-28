@@ -1,6 +1,6 @@
 
 def helloworld(name):
-    print ("Hello " + name)
+    print("Hello " + name)
 
 
 def main():
