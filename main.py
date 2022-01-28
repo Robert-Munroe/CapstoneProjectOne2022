@@ -1,10 +1,12 @@
 
-def helloWorld(name):
+def helloworld(name):
     print ("Hello " + name)
+
 
 def main():
     name = 'Robert'
-    helloWorld(name)
+    helloworld(name)
 
-if __name__ =='__main__':
+
+if __name__ == '__main__':
     main()
