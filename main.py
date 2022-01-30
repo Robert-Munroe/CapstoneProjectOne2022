@@ -1,12 +1,9 @@
 # Robert Munroe Senior Capstone Project 1
 
 import requests
-import secrets
 
 
 def get_data(url: str):
-
-    final_data = []
 
     final_url = f"{url}"
     response = requests.get(final_url)
