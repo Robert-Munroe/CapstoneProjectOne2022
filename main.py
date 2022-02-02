@@ -84,13 +84,17 @@ def get_data():
     return list_of_data
 
 
-def print_to_file(top50, top100, top150, top200, wheeloftime):
+def print_to_file(top50, top100, top150, top200, wheeloftime, top250):
     f = open("total_data.txt", "w+")
-    f.write(top50)
-    f.write(top100)
-    f.write(top150)
-    f.write(top200)
-    f.write(wheeloftime)
+    f.write(top50 + "\n")
+    f.write(top100 + "\n")
+    f.write(top150 + "\n")
+    f.write(top200 + "\n")
+    f.write(wheeloftime + "\n")
+    # f.write("\n" + top250)
+    for i in range(len(top250)):
+        if top250[i]['rank'] == "% s" % i:
+            f.write("\n" + json.dumps(top250[i]))
     f.close()
 
     return
@@ -117,7 +121,7 @@ def main():
     print(wheel_of_time_data)
 
     print_to_file(json.dumps(top50_data), json.dumps(top100_data), json.dumps(top150_data)\
-                  , json.dumps(top200_data), json.dumps(wheel_of_time_data))
+                  , json.dumps(top200_data), json.dumps(wheel_of_time_data), top_250_data)
 
 
 if __name__ == '__main__':
