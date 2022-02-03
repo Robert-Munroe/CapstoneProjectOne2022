@@ -93,8 +93,8 @@ def print_to_file(top50, top100, top1, top200, wheeloftime, top250):
     f.write(wheeloftime + "\n")
     # f.write("\n" + top250)
     for i in range(len(top250)):
-        if top250[i]['rank'] == "% s" % i:
-            f.write("\n" + json.dumps(top250[i]))
+        data = top250[i]
+        f.write("\n" + json.dumps(data))
     f.close()
 
     return
