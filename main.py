@@ -40,7 +40,7 @@ def get_tv_show_data(title_code: str):
 
 # get 50th tv show data takes in the list of the top 250 tv shows, searches for a rank, and returns the id when the
 # rank matches the one I want, and then search the user data api with the id given
-# the same process is repeated for 100, 150, 200 - I plan to look for a way to combine these on my free time
+# the same process is repeated for 100, 1, 200 - I plan to look for a way to combine these on my free time
 
 
 def get_50th_tv_show_data(top_250_show_list):
@@ -57,10 +57,10 @@ def get_100th_tv_show_data(top_250_show_list):
             return get_tv_show_data(top_250_show_list[i]['id'])
 
 
-def get_top_150_tv_show_data(top_250_show_list):
+def get_top_1_tv_show_data(top_250_show_list):
 
     for i in range(len(top_250_show_list)):
-        if top_250_show_list[i]['rank'] == '150':
+        if top_250_show_list[i]['rank'] == '1':
             return get_tv_show_data(top_250_show_list[i]['id'])
 
 
@@ -84,11 +84,11 @@ def get_data():
     return list_of_data
 
 
-def print_to_file(top50, top100, top150, top200, wheeloftime, top250):
+def print_to_file(top50, top100, top1, top200, wheeloftime, top250):
     f = open("total_data.txt", "w+")
     f.write(top50 + "\n")
     f.write(top100 + "\n")
-    f.write(top150 + "\n")
+    f.write(top1 + "\n")
     f.write(top200 + "\n")
     f.write(wheeloftime + "\n")
     # f.write("\n" + top250)
@@ -112,15 +112,15 @@ def main():
     print(top50_data)
     top100_data = get_100th_tv_show_data(top_250_data)
     print(top100_data)
-    top150_data = get_top_150_tv_show_data(top_250_data)
-    print(top150_data)
+    top1_data = get_top_1_tv_show_data(top_250_data)
+    print(top1_data)
     top200_data = get_top_200_tv_show_data(top_250_data)
     print(top200_data)
 
     wheel_of_time_data = get_tv_show_data(get_tv_show_title_id("the wheel of time 2021"))  # complete function
     print(wheel_of_time_data)
 
-    print_to_file(json.dumps(top50_data), json.dumps(top100_data), json.dumps(top150_data)\
+    print_to_file(json.dumps(top50_data), json.dumps(top100_data), json.dumps(top1_data)
                   , json.dumps(top200_data), json.dumps(wheel_of_time_data), top_250_data)
 
 
