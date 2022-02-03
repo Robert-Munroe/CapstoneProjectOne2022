@@ -120,8 +120,8 @@ def main():
     wheel_of_time_data = get_tv_show_data(get_tv_show_title_id("the wheel of time 2021"))  # complete function
     print(wheel_of_time_data)
 
-    print_to_file(json.dumps(top50_data), json.dumps(top100_data), json.dumps(top1_data)
-                  , json.dumps(top200_data), json.dumps(wheel_of_time_data), top_250_data)
+    print_to_file(json.dumps(top50_data), json.dumps(top100_data), json.dumps(top1_data),
+                  json.dumps(top200_data), json.dumps(wheel_of_time_data), top_250_data)
 
 
 if __name__ == '__main__':
