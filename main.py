@@ -6,7 +6,7 @@ import json
 
 # out of dictionary takes the raw data given from json, and the key of the dictionary
 # and only returns the list
-
+# add comment to test workflow
 
 def out_of_dictionary(data, qualifier: str):
     new_data = data.get(qualifier)
