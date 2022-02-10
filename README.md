@@ -1,14 +1,17 @@
 # CapstoneProjectOne2022
 
 1. Robert Munroe
-2. json should be imported, but no install needed
+2. json should be imported, but no install needed. You will need to install pytest.
 3. This project pulls the top 250 shows from IMBD's api. 
 it then gets the user rankings for the top 1, 50, 100, and 200th
 ranked show. It also pulls the user rankings for The Wheel of Time
-show. 
+show. Once it has this data it will create and populate a database with this data.
 
-More indepth: it'll pull the top 250 shows and automatically get the
-tv show's IMBD-id to pull the data from the API for user data. This way I
-don't need to hard code TV show's id to better reflect ranking changes over timer. 
+250tvshows' database is broken down into 7 columns: tv show id, title, full title, year it came out
+the crew that worked on the show, the imdb rating, and the amount of ratings. 
 
-4. Nothing is missing from sprint 1.
+userdata table has many more columns. it has an imbdId code, total ratings, the number of votes.
+Then the table has columns for ratings 1-10 which has two parts. The total amount of people who voted X rating
+and the % of people who voted X ratings. 
+
+4. I am missing importing the user data into the database, testing, using github for my secretes. 

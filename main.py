@@ -57,6 +57,7 @@ def setup_db(cursor: sqlite3.Cursor):
     one_rankings INTEGER DEFAULT 0,
     one_ranking_votes INTEGER DEFAULT 0,
     PRIMARY KEY(imbdId)
+    FOREIGN KEY(title_code) REFERENCES top250tvshows(title_code)
     );''')
 
 
