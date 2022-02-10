@@ -9,18 +9,18 @@ import sqlite3
 from typing import Tuple
 
 
-def open_db(filename: str)->Tuple[sqlite3.Connection, sqlite3.Cursor]:
+def open_db(filename: str) -> Tuple[sqlite3.Connection, sqlite3.Cursor]:
     db_connection = sqlite3.connect(filename)
     cursor = db_connection.cursor()
     return db_connection, cursor
 
 
-def close_db(connection:sqlite3.Connection):
+def close_db(connection: sqlite3.Connection):
     connection.commit()
     connection.close()
 
 
-def setup_db(cursor:sqlite3.Cursor):
+def setup_db(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS top250tvshows(
     title_code TEXT NOT NULL,
     tv_show_title TEXT NOT NULL,
@@ -32,6 +32,32 @@ def setup_db(cursor:sqlite3.Cursor):
     PRIMARY KEY(title_code)
     );''')
 
+    cursor.execute('''CREATE TABLE IF NOT EXISTS user_rankings(
+    imbdId TEXT NOT NULL,
+    total_rankins INTEGER DEFAULT 0,
+    total_ranking_votes INTEGER DEFAULT 0,
+    ten_rankings INTEGER DEFAULT 0,
+    ten_ranking_votes INTEGER DEFAULT 0,
+    nine_rankings INTEGER DEFAULT 0,
+    nine_ranking_votes INTEGER DEFAULT 0,
+    eight_rankings INTEGER DEFAULT 0,
+    eight_ranking_votes INTEGER DEFAULT 0,
+    seven_rankings INTEGER DEFAULT 0,
+    seven_ranking_votes INTEGER DEFAULT 0,
+    six_rankings INTEGER DEFAULT 0,
+    six_ranking_votes INTEGER DEFAULT 0,
+    five_rankings INTEGER DEFAULT 0,
+    five_ranking_votes INTEGER DEFAULT 0,
+    four_rankings INTEGER DEFAULT 0,
+    four_ranking_votes INTEGER DEFAULT 0,
+    three_rankings INTEGER DEFAULT 0,
+    three_ranking_votes INTEGER DEFAULT 0,
+    two_rankings INTEGER DEFAULT 0,
+    two_ranking_votes INTEGER DEFAULT 0,
+    one_rankings INTEGER DEFAULT 0,
+    one_ranking_votes INTEGER DEFAULT 0,
+    PRIMARY KEY(imbdId)
+    );''')
 
 
 def get_top_250_data() -> list[dict]:
