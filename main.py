@@ -1,7 +1,37 @@
 import sys
 
 import requests
+
 import secrets
+
+import sqlite3
+
+from typing import Tuple
+
+
+def open_db(filename: str)->Tuple[sqlite3.Connection, sqlite3.Cursor]:
+    db_connection = sqlite3.connect(filename)
+    cursor = db_connection.cursor()
+    return db_connection, cursor
+
+
+def close_db(connection:sqlite3.Connection):
+    connection.commit()
+    connection.close()
+
+
+def setup_db(cursor:sqlite3.Cursor):
+    cursor.execute('''CREATE TABLE IF NOT EXISTS top250tvshows(
+    title_code TEXT NOT NULL,
+    tv_show_title TEXT NOT NULL,
+    tv_show_full_title TEXT NOT NULL,
+    tv_show_year INTEGER NOT NULL,
+    crew_members TEXT NOT NULL,
+    imbd_ranking INTEGER DEFAULT 0,
+    imbrating_count INTEGER DEFAULT 0,
+    PRIMARY KEY(title_code)
+    );''')
+
 
 
 def get_top_250_data() -> list[dict]:
@@ -49,10 +79,14 @@ def get_ratings(top_show_data: list[dict]) -> list[dict]:
 
 
 def main():
-    top_show_data = get_top_250_data()
-    ratings_data = get_ratings(top_show_data)
-    report_results(ratings_data)
-    report_results(top_show_data)
+    # top_show_data = get_top_250_data()
+    # ratings_data = get_ratings(top_show_data)
+    # report_results(ratings_data)
+    # report_results(top_show_data)
+    conn, cursor = open_db("250_TV_Show_Table.sqlite")
+    print(type(conn))
+    setup_db(cursor)
+    close_db(conn)
 
 
 if __name__ == '__main__':
