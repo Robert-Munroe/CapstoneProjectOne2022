@@ -60,6 +60,11 @@ def setup_db(cursor: sqlite3.Cursor):
     );''')
 
 
+def add_250_show_data(cursor: sqlite3.Cursor):
+    cursor.execute(f'''INSERT INTO top250tvshows(title_code, tv_show_title, tv_show_full_title, tv_show_year,
+     crew_members, imbd_ranking, imbrating_count) VALUES("title code", "title", "full title", 2020, 2, 1, 3)''')
+
+
 def get_top_250_data() -> list[dict]:
     api_query = f"https://imdb-api.com/en/API/Top250TVs/{secrets.api_key}"
     response = requests.get(api_query)
@@ -113,6 +118,7 @@ def main():
     conn, cursor = open_db("250_TV_Show_Table.sqlite")
     print(type(conn))
     setup_db(cursor)
+    add_250_show_data(cursor)
     close_db(conn)
 
 
