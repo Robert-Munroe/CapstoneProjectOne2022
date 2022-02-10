@@ -64,7 +64,7 @@ def add_250_show_data(cursor: sqlite3.Cursor, data):
     for i in range(len(data)):
         temp_tuple = data[i]['id'], data[i]['title'], data[i]['fullTitle'], data[i]['year'], data[i]['crew'], \
                data[i]['imDbRating'], data[i]['imDbRatingCount']
-        cursor.execute('INSERT INTO top250tvshows VALUES(?, ?, ?, ?, ?, ?, ?);', temp_tuple);
+        cursor.execute('INSERT INTO top250tvshows VALUES(?, ?, ?, ?, ?, ?, ?);', temp_tuple)
 
 
 def get_top_250_data() -> list[dict]:
