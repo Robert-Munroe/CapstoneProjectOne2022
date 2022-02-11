@@ -1,4 +1,5 @@
 import main
+import sqlite3
 import pytest
 
 

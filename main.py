@@ -57,7 +57,6 @@ def setup_db(cursor: sqlite3.Cursor):
     one_rankings INTEGER DEFAULT 0,
     one_ranking_votes INTEGER DEFAULT 0,
     PRIMARY KEY(imbdId)
-    FOREIGN KEY(title_code) REFERENCES top250tvshows(title_code)
     );''')
 
 
@@ -115,9 +114,9 @@ def get_ratings(top_show_data: list[dict]) -> list[dict]:
 def main():
 
     top_show_data = get_top_250_data()
-    # ratings_data = get_ratings(top_show_data)
-    # report_results(ratings_data)
-    # report_results(top_show_data)
+    ratings_data = get_ratings(top_show_data)
+    report_results(ratings_data)
+    report_results(top_show_data)
     conn, cursor = open_db("250_TV_Show_Table.sqlite")
     print(type(conn))
     setup_db(cursor)
