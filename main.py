@@ -36,28 +36,47 @@ def setup_db(cursor: sqlite3.Cursor):
     imbdId TEXT NOT NULL,
     total_rankins INTEGER DEFAULT 0,
     total_ranking_votes INTEGER DEFAULT 0,
-    ten_rankings INTEGER DEFAULT 0,
+    ten_rankings TEXT NOT NULL,
     ten_ranking_votes INTEGER DEFAULT 0,
-    nine_rankings INTEGER DEFAULT 0,
+    nine_rankings TEXT NOT NULL,
     nine_ranking_votes INTEGER DEFAULT 0,
-    eight_rankings INTEGER DEFAULT 0,
+    eight_rankings TEXT NOT NULL,
     eight_ranking_votes INTEGER DEFAULT 0,
-    seven_rankings INTEGER DEFAULT 0,
+    seven_rankings TEXT NOT NULL,
     seven_ranking_votes INTEGER DEFAULT 0,
-    six_rankings INTEGER DEFAULT 0,
+    six_rankings TEXT NOT NULL,
     six_ranking_votes INTEGER DEFAULT 0,
-    five_rankings INTEGER DEFAULT 0,
+    five_rankings TEXT NOT NULL,
     five_ranking_votes INTEGER DEFAULT 0,
-    four_rankings INTEGER DEFAULT 0,
+    four_rankings TEXT NOT NULL,
     four_ranking_votes INTEGER DEFAULT 0,
-    three_rankings INTEGER DEFAULT 0,
+    three_rankings TEXT NOT NULL,
     three_ranking_votes INTEGER DEFAULT 0,
-    two_rankings INTEGER DEFAULT 0,
+    two_rankings TEXT NOT NULL,
     two_ranking_votes INTEGER DEFAULT 0,
-    one_rankings INTEGER DEFAULT 0,
+    one_rankings TEXT NOT NULL,
     one_ranking_votes INTEGER DEFAULT 0,
     PRIMARY KEY(imbdId)
     );''')
+
+
+def add_user_show_data(cursor: sqlite3.Cursor, data):
+    i = 0
+    while i != 4:
+        temp_tuple = data[i]['imDbId'], data[i]['totalRating'], data[i]['totalRatingVotes'],\
+                     data[i]['ratings'][0]['percent'], data[i]['ratings'][0]['votes'],\
+                     data[i]['ratings'][1]['percent'], data[i]['ratings'][1]['votes'],\
+                     data[i]['ratings'][2]['percent'], data[i]['ratings'][2]['votes'], \
+                     data[i]['ratings'][3]['percent'], data[i]['ratings'][3]['votes'], \
+                     data[i]['ratings'][4]['percent'], data[i]['ratings'][4]['votes'], \
+                     data[i]['ratings'][5]['percent'], data[i]['ratings'][5]['votes'], \
+                     data[i]['ratings'][6]['percent'], data[i]['ratings'][6]['votes'], \
+                     data[i]['ratings'][7]['percent'], data[i]['ratings'][7]['votes'], \
+                     data[i]['ratings'][8]['percent'], data[i]['ratings'][8]['votes'], \
+                     data[i]['ratings'][9]['percent'], data[i]['ratings'][9]['votes']
+        cursor.execute('INSERT INTO user_rankings VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,'
+                       ' ?, ?, ?, ?, ?, ?);', temp_tuple)
+        i = i + 1
 
 
 def add_250_show_data(cursor: sqlite3.Cursor, data):
@@ -121,6 +140,7 @@ def main():
     print(type(conn))
     setup_db(cursor)
     add_250_show_data(cursor, top_show_data)
+    add_user_show_data(cursor, ratings_data)
     close_db(conn)
 
 
