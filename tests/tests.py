@@ -1,6 +1,4 @@
 import main
-import sqlite3
-import pytest
 
 
 def test_250():
