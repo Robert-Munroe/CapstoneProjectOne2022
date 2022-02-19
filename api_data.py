@@ -59,22 +59,15 @@ def make_zero_values() -> list[dict]:
     '''this is a kludge to deal with the fact that one record has no ratings data'''
     zero_rating = []
     for rating_value in range(10, 0, -1):
-        rating = {}
-        rating['rating'] = rating_value
-        rating['percent'] = '0%'
-        rating['votes'] = 0
+        rating = {'rating': rating_value, 'percent': '0%', 'votes': 0}
         zero_rating.append(rating)
     return zero_rating
 
 
 def _flatten_and_tuplize(ratings_entry: dict) -> tuple:
-    db_ready_list = []
-    db_ready_list.append(ratings_entry['imDbId'])
-    db_ready_list.append(ratings_entry['title'])
-    db_ready_list.append(ratings_entry['fullTitle'])
-    db_ready_list.append(int(ratings_entry['year']))
-    db_ready_list.append(int(ratings_entry['totalRating']))
-    db_ready_list.append(int(ratings_entry['totalRatingVotes']))
+    db_ready_list = [ratings_entry['imDbId'], ratings_entry['title'], ratings_entry['fullTitle'],
+                     int(ratings_entry['year']), int(ratings_entry['totalRating']),
+                     int(ratings_entry['totalRatingVotes'])]
     if not ratings_entry['ratings']:  # deal with #200 missing ratings
         ratings_entry['ratings'] = make_zero_values()
     for rating in ratings_entry['ratings']:
