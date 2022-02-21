@@ -8,9 +8,9 @@ ranked show. It also pulls the user rankings for The Wheel of Time
 show. Once it has this data it will create and populate a database with this data.
 4. This project pulls the most popular TV shows and movies and will place them into
 its own table. 
-5. This project will test to ensure its getting all of the api data, and tests to make
+5. This project will test to ensure its getting all the api data, and tests to make
 sure we are putting data into the tables correctly.
 6. puts the greatest change in movies into a new table
 
 What is currently not there:
-1. Testing to make sure I recieved the biggest change
+1. Testing to make sure I received the biggest change
