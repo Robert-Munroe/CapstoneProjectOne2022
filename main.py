@@ -14,6 +14,7 @@ def report_results(data_to_write: list):
 def main():
     connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
 
+    # all database table creations
     dataBaseStuff.create_top250_table(db_cursor)
     dataBaseStuff.create_ratings_table(db_cursor)
     dataBaseStuff.create_most_popular_table(db_cursor)
