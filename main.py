@@ -46,6 +46,9 @@ def main():
     greatest_change = api_data_movies.prepare_greatest_change(most_popular_movie_data_for_db)
     dataBaseStuff.put_greatest_change_in_database(greatest_change, db_cursor)
 
+    smallest_change = api_data_movies.prepare_smallest_change(most_popular_movie_data_for_db)
+    dataBaseStuff.put_greatest_change_in_database(smallest_change, db_cursor)
+
     dataBaseStuff.close_db(connection)
 
 

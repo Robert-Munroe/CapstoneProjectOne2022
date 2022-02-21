@@ -97,8 +97,14 @@ def prepare_greatest_change(most_popular_data: list[tuple]) -> list[tuple]:
             stored_count = i
 
     data_for_database.append(most_popular_data[stored_count])
-    stored_count = 0
 
+    return data_for_database
+
+
+def prepare_smallest_change(most_popular_data: list[tuple]) -> list[tuple]:
+    data_for_database = []
+    temp_int = 0
+    stored_count = 0
     for i in range(len(most_popular_data)):
         if i == 0:
             temp_int = most_popular_data[i][2]
@@ -109,4 +115,3 @@ def prepare_greatest_change(most_popular_data: list[tuple]) -> list[tuple]:
     data_for_database.append(most_popular_data[stored_count])
 
     return data_for_database
-
