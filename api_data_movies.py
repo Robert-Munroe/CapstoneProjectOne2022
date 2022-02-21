@@ -61,3 +61,52 @@ def prepare_most_popular_movies(most_popular_data: list[dict]) -> list[tuple]:
         movie_values = tuple(movie_values)
         data_for_database.append(movie_values)
     return data_for_database
+
+
+def prepare_greatest_change(most_popular_data: list[tuple]) -> list[tuple]:
+    data_for_database = []
+    temp_int = 0
+    stored_count = 0
+    for i in range(len(most_popular_data)):
+        if i == 0:
+            temp_int = most_popular_data[i][2]
+        elif i != 0 and most_popular_data[i][2] > temp_int:
+            temp_int = most_popular_data[i][2]
+            stored_count = i
+
+    previous_greatest = temp_int
+    data_for_database.append(most_popular_data[stored_count])
+    stored_count = 0
+
+    for i in range(len(most_popular_data)):
+        if i == 0:
+            temp_int = most_popular_data[i][2]
+        elif i != 0 and temp_int < most_popular_data[i][2] < previous_greatest:
+            temp_int = most_popular_data[i][2]
+            stored_count = i
+
+    previous_greatest = temp_int
+    data_for_database.append(most_popular_data[stored_count])
+    stored_count = 0
+
+    for i in range(len(most_popular_data)):
+        if i == 0:
+            temp_int = most_popular_data[i][2]
+        elif i != 0 and temp_int < most_popular_data[i][2] < previous_greatest:
+            temp_int = most_popular_data[i][2]
+            stored_count = i
+
+    data_for_database.append(most_popular_data[stored_count])
+    stored_count = 0
+
+    for i in range(len(most_popular_data)):
+        if i == 0:
+            temp_int = most_popular_data[i][2]
+        elif i != 0 and temp_int > most_popular_data[i][2]:
+            temp_int = most_popular_data[i][2]
+            stored_count = i
+
+    data_for_database.append(most_popular_data[stored_count])
+
+    return data_for_database
+
