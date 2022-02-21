@@ -4,7 +4,7 @@ import sys
 
 
 def get_most_popular_shows() -> list[dict]:
-    api_query = "https://imdb-api.com/en/API/MostPopularTVs/{secrets.secret_key}"
+    api_query = f"https://imdb-api.com/en/API/MostPopularTVs/{secrets.secret_key}"
     response = requests.get(api_query)
     if response.status_code != 200:  # if we don't get an ok response we have trouble
         print(f"Failed to get data, response code:{response.status_code} and error message: {response.reason} ")
@@ -20,9 +20,15 @@ def prepare_most_popular_shows(most_popular_data: list[dict]) -> list[tuple]:
     for show_data in most_popular_data:
         show_values = list(show_data.values())
         show_values[1] = int(show_values[1])
-        show_values[2] = int(show_values[2])
-        show_values[6] = int(show_values[6])  # convert year to int
-        show_values[8] = float(show_values[8])
+        temp_string = show_values[2]
+        int(temp_string.replace(',', ''))
+        show_values[2] = temp_string
+        show_values[5] = int(show_values[5])  # convert year to int
+        temp_string = show_values[8]
+        if temp_string != '':
+            show_values[8] = float(temp_string)
+        else:
+            show_values[8] = 0
         show_values[9] = int(show_values[9])
         show_values = tuple(show_values)
         data_for_database.append(show_values)

@@ -20,6 +20,10 @@ def create_most_popular_table(cursor: sqlite3.Cursor):
         title TEXT,
         fulltitle TEXT,
         year INTEGER,
+        image_url TEXT,
+        crew TEXT,
+        imdb_rating REAL,
+        imdb_rating_count INTEGER,  
         FOREIGN KEY (imdb_ttcode) REFERENCES top_show_data (ttid)
         ON DELETE CASCADE ON UPDATE NO ACTION
         );''')
@@ -33,6 +37,10 @@ def create_most_popular_movie_table(cursor: sqlite3.Cursor):
         title TEXT,
         fulltitle TEXT,
         year INTEGER,
+        image_url TEXT,
+        crew TEXT,
+        imdb_rating REAL,
+        imdb_rating_count INTEGER,        
         FOREIGN KEY (imdb_ttcode) REFERENCES top_movie_data (ttid)
         ON DELETE CASCADE ON UPDATE NO ACTION
         );''')
@@ -106,14 +114,14 @@ def create_ratings_table(cursor: sqlite3.Cursor):
 
 def put_most_popular_movies_in_database(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):
     db_cursor.executemany("""INSERT INTO most_popular_movies(imdb_ttcode, rankings_key, ranking_up_down, title,
-      fulltitle, year)
-     VALUES(?, ?, ?, ?, ?, ?)""", data_to_add)
+      fulltitle, year, image_url, crew, imdb_rating, imdb_rating_count)
+     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", data_to_add)
 
 
 def put_most_popular_in_database(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):
     db_cursor.executemany("""INSERT INTO most_popular_shows(imdb_ttcode, rankings_key, ranking_up_down, title,
-     fulltitle, year)
-     VALUES(?, ?, ?, ?, ?, ?)""", data_to_add)
+     fulltitle, year, image_url, crew, imdb_rating, imdb_rating_count)
+     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", data_to_add)
 
 
 def put_top_250_in_database(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):

@@ -32,7 +32,7 @@ def prepare_top_250movie_data(top_movie_data: list[dict]) -> list[tuple]:
 
 
 def get_most_popular_movies() -> list[dict]:
-    api_query = "https://imdb-api.com/en/API/MostPopularMovies/{secrets.secret_key}"
+    api_query = f"https://imdb-api.com/en/API/MostPopularMovies/{secrets.secret_key}"
     response = requests.get(api_query)
     if response.status_code != 200:  # if we don't get an ok response we have trouble
         print(f"Failed to get data, response code:{response.status_code} and error message: {response.reason} ")
@@ -48,9 +48,15 @@ def prepare_most_popular_movies(most_popular_data: list[dict]) -> list[tuple]:
     for movie_data in most_popular_data:
         movie_values = list(movie_data.values())
         movie_values[1] = int(movie_values[1])
-        movie_values[2] = int(movie_values[2])
-        movie_values[6] = int(movie_values[6])  # convert year to int
-        movie_values[8] = float(movie_values[8])
+        temp_string = movie_values[2]
+        int(temp_string.replace(',', ''))
+        movie_values[2] = temp_string
+        movie_values[5] = int(movie_values[5])  # convert year to int
+        temp_string = movie_values[8]
+        if temp_string != '':
+            movie_values[8] = float(temp_string)
+        else:
+            movie_values[8] = 0
         movie_values[9] = int(movie_values[9])
         movie_values = tuple(movie_values)
         data_for_database.append(movie_values)
