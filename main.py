@@ -18,6 +18,7 @@ def main():
     dataBaseStuff.create_ratings_table(db_cursor)
     dataBaseStuff.create_most_popular_table(db_cursor)
     dataBaseStuff.create_top250movies_table(db_cursor)
+    dataBaseStuff.create_most_popular_movie_table(db_cursor)
 
     top_show_data = api_data.get_top_250_data()
     top_show_data_for_db = api_data.prepare_top_250_data(top_show_data)
@@ -35,6 +36,10 @@ def main():
     top_movie_data = api_data_movies.get_top_250movie_data()
     top_movie_data_for_db = api_data_movies.prepare_top_250movie_data(top_movie_data)
     dataBaseStuff.put_top_250movies_in_database(top_movie_data_for_db, db_cursor)
+
+    most_popular_movies = api_data_movies.get_most_popular_movies()
+    most_popular_movie_data_for_db = api_data_movies.prepare_most_popular_movies(most_popular_movies)
+    dataBaseStuff.put_most_popular_movies_in_database(most_popular_movie_data_for_db, db_cursor)
 
     dataBaseStuff.close_db(connection)
 
