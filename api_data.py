@@ -19,7 +19,6 @@ def prepare_most_popular_shows(most_popular_data: list[dict]) -> list[tuple]:
     data_for_database = []
     for show_data in most_popular_data:
         show_values = list(show_data.values())
-        show_values[1] = int(show_values[1])  # convert rank to int
         show_values[5] = int(show_values[5])  # convert year to int
         show_values[7] = float(show_values[7])
         show_values[8] = int(show_values[8])
