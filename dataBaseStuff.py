@@ -12,6 +12,19 @@ def close_db(connection: sqlite3.Connection):
     connection.close()
 
 
+def create_most_popular_table(cursor: sqlite3.Cursor):
+    cursor.execute('''CREATE TABLE IF NOT EXISTS most_popular_shows(
+        rankings_key INTEGER PRIMARY KEY,
+        ranking_up_down TEXT NOT NULL,
+        imdb_ttcode TEXT NOT NULL,
+        title TEXT,
+        fulltitle TEXT,
+        year INTEGER,
+        FOREIGN KEY (imdb_ttcode) REFERENCES top_show_data (ttid)
+        ON DELETE CASCADE ON UPDATE NO ACTION
+        );''')
+
+
 def create_top250_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS top_show_data(
     ttid TEXT PRIMARY KEY,
@@ -57,6 +70,12 @@ def create_ratings_table(cursor: sqlite3.Cursor):
     FOREIGN KEY (imdb_ttcode) REFERENCES top_show_data (ttid)
     ON DELETE CASCADE ON UPDATE NO ACTION
     );''')
+
+
+def put_most_popular_in_database(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):
+    db_cursor.executemany("""INSERT INTO most_popular_shows(rankings_key, ranking_up_down, imdb_ttcode, title,
+     fulltitle, year)
+     VALUES(?, ?, ?, ?, ?, ?)""", data_to_add)
 
 
 def put_top_250_in_database(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):

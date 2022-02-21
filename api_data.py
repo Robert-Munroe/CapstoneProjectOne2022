@@ -3,6 +3,31 @@ import secrets
 import sys
 
 
+def get_most_popular_shows() -> list[dict]:
+    api_query = "https://imdb-api.com/en/API/MostPopularTVs/{secrets.secret_key}"
+    response = requests.get(api_query)
+    if response.status_code != 200:  # if we don't get an ok response we have trouble
+        print(f"Failed to get data, response code:{response.status_code} and error message: {response.reason} ")
+        sys.exit(-1)
+    # jsonresponse is a kinda useless dictionary, but the items element has what we need
+    jsonresponse = response.json()
+    show_list = jsonresponse["items"]
+    return show_list
+
+
+def prepare_most_popular_shows(most_popular_data: list[dict]) -> list[tuple]:
+    data_for_database = []
+    for show_data in most_popular_data:
+        show_values = list(show_data.values())
+        show_values[1] = int(show_values[1])  # convert rank to int
+        show_values[5] = int(show_values[5])  # convert year to int
+        show_values[7] = int(show_values[7])
+        show_values[8] = int(show_values[8])
+        show_values = tuple(show_values)
+        data_for_database.append(show_values)
+    return data_for_database
+
+
 def get_top_250_data() -> list[dict]:
     api_query = f"https://imdb-api.com/en/API/Top250TVs/{secrets.secret_key}"
     response = requests.get(api_query)
@@ -56,7 +81,7 @@ def prepare_top_250_data(top_show_data: list[dict]) -> list[tuple]:
 
 
 def make_zero_values() -> list[dict]:
-    '''this is a kludge to deal with the fact that one record has no ratings data'''
+    """this is a kludge to deal with the fact that one record has no ratings data"""
     zero_rating = []
     for rating_value in range(10, 0, -1):
         rating = {'rating': rating_value, 'percent': '0%', 'votes': 0}
