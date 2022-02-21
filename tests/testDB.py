@@ -1,4 +1,6 @@
+import api_data_movies
 import dataBaseStuff
+import sqlite3
 
 # we'll save this one for the next tests
 test_api_data_entry = [{"id": "tttestdata", "rank": "10002", "title": "Comp490 Project 1 Show",
