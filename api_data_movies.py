@@ -48,9 +48,10 @@ def prepare_most_popular_movies(most_popular_data: list[dict]) -> list[tuple]:
     for movie_data in most_popular_data:
         movie_values = list(movie_data.values())
         movie_values[1] = int(movie_values[1])
-        movie_values[5] = int(movie_values[5])  # convert year to int
-        movie_values[7] = float(movie_values[7])
-        movie_values[8] = int(movie_values[8])
+        movie_values[2] = int(movie_values[2])
+        movie_values[6] = int(movie_values[6])  # convert year to int
+        movie_values[8] = float(movie_values[8])
+        movie_values[9] = int(movie_values[9])
         movie_values = tuple(movie_values)
         data_for_database.append(movie_values)
     return data_for_database

@@ -16,7 +16,7 @@ def create_most_popular_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS most_popular_shows(
         imdb_ttcode TEXT NOT NULL,
         rankings_key INTEGER PRIMARY KEY,
-        ranking_up_down TEXT NOT NULL,
+        ranking_up_down INTEGER NOT NULL,
         title TEXT,
         fulltitle TEXT,
         year INTEGER,
@@ -29,11 +29,11 @@ def create_most_popular_movie_table(cursor: sqlite3.Cursor):
     cursor.execute('''CREATE TABLE IF NOT EXISTS most_popular_movies(
         imdb_ttcode TEXT NOT NULL,
         rankings_key INTEGER PRIMARY KEY,
-        ranking_up_down TEXT NOT NULL,
+        ranking_up_down INTEGER NOT NULL,
         title TEXT,
         fulltitle TEXT,
         year INTEGER,
-        FOREIGN KEY (imdb_ttcode) REFERENCES top_show_data (ttid)
+        FOREIGN KEY (imdb_ttcode) REFERENCES top_movie_data (ttid)
         ON DELETE CASCADE ON UPDATE NO ACTION
         );''')
 
@@ -106,7 +106,7 @@ def create_ratings_table(cursor: sqlite3.Cursor):
 
 def put_most_popular_movies_in_database(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):
     db_cursor.executemany("""INSERT INTO most_popular_movies(imdb_ttcode, rankings_key, ranking_up_down, title,
-     fulltitle, year)
+      fulltitle, year)
      VALUES(?, ?, ?, ?, ?, ?)""", data_to_add)
 
 

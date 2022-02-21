@@ -20,9 +20,10 @@ def prepare_most_popular_shows(most_popular_data: list[dict]) -> list[tuple]:
     for show_data in most_popular_data:
         show_values = list(show_data.values())
         show_values[1] = int(show_values[1])
-        show_values[5] = int(show_values[5])  # convert year to int
-        show_values[7] = float(show_values[7])
-        show_values[8] = int(show_values[8])
+        show_values[2] = int(show_values[2])
+        show_values[6] = int(show_values[6])  # convert year to int
+        show_values[8] = float(show_values[8])
+        show_values[9] = int(show_values[9])
         show_values = tuple(show_values)
         data_for_database.append(show_values)
     return data_for_database
