@@ -23,7 +23,7 @@ def create_most_popular_table(cursor: sqlite3.Cursor):
         image_url TEXT,
         crew TEXT,
         imdb_rating REAL,
-        imdb_rating_count INTEGER,  
+        imdb_rating_count INTEGER,
         FOREIGN KEY (imdb_ttcode) REFERENCES top_show_data (ttid)
         ON DELETE CASCADE ON UPDATE NO ACTION
         );''')
@@ -40,7 +40,7 @@ def create_most_popular_movie_table(cursor: sqlite3.Cursor):
         image_url TEXT,
         crew TEXT,
         imdb_rating REAL,
-        imdb_rating_count INTEGER,        
+        imdb_rating_count INTEGER,
         FOREIGN KEY (imdb_ttcode) REFERENCES top_movie_data (ttid)
         ON DELETE CASCADE ON UPDATE NO ACTION
         );''')
