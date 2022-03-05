@@ -120,14 +120,14 @@ def put_top_250_in_database(table: str, data_to_add: list[tuple], db_cursor: sql
 
 
 def put_most_popular_in_database(table: str, data_to_add: list[tuple], db_cursor: sqlite3.Cursor):
-    db_cursor.executemany(f"""INSERT INTO {table}(ttid, rank, rankchange, title, fulltitle, year, image_url, crew, 
+    db_cursor.executemany(f"""INSERT INTO {table}(ttid, rank, rankchange, title, fulltitle, year, image_url, crew,
     rating, ratingcount) VALUES(?,?,?,?,?,?,?,?,?, ?)""", data_to_add)
 
 
 def put_in_wheel_of_time(db_cursor: sqlite3.Cursor):
     """this is just a total kludge. I need a Wheel of time Entry for the foreign key to work, so I'm just adding it"""
-    db_cursor.execute("""INSERT INTO top_show_data(ttid, rank, title, fulltitle, year, image_url, crew, imdb_rating, 
-    imdb_rating_count) VALUES('tt7462410',0,'The Wheel of Time','The Wheel of Time (TV Series 2021– )',2021,'', 
+    db_cursor.execute("""INSERT INTO top_show_data(ttid, rank, title, fulltitle, year, image_url, crew, imdb_rating,
+    imdb_rating_count) VALUES('tt7462410',0,'The Wheel of Time','The Wheel of Time (TV Series 2021– )',2021,'',
     'Rosamund Pike, Daniel Henney', 7.2,85286)""")
 
 
