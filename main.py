@@ -34,6 +34,7 @@ def get_data_and_put_in_db(db_cursor: sqlite3.Cursor):
 
 def main():
     connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    dataBaseStuff.delete_tables(db_cursor)  # smelly way to update tables, look for alternative way after
     dataBaseStuff.create_all_tables(db_cursor)
     get_data_and_put_in_db(db_cursor)
     dataBaseStuff.close_db(connection)

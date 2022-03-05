@@ -138,3 +138,11 @@ def put_ratings_into_db(data_to_add: list[tuple], db_cursor: sqlite3.Cursor):
     rating6_percent, rating6_votes, rating5_percent, rating5_votes, rating4_percent, rating4_votes, rating3_percent,
     rating3_votes, rating2_percent, rating2_votes, rating1_percent, rating1_votes)
     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""", data_to_add)
+
+
+def delete_tables(db_cursor: sqlite3.Cursor):
+    db_cursor.execute('''DROP TABLE most_popular_movies''')
+    db_cursor.execute('''DROP TABLE most_popular_shows''')
+    db_cursor.execute('''DROP TABLE show_ratings''')
+    db_cursor.execute('''DROP TABLE top_movie_data''')
+    db_cursor.execute('''DROP TABLE top_show_data''')
