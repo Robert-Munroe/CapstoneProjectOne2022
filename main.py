@@ -1,6 +1,8 @@
 import sqlite3
+from tkinter import messagebox
 import api_data
 import dataBaseStuff
+from tkinter import *
 
 
 def report_results(data_to_write: list):
@@ -11,7 +13,11 @@ def report_results(data_to_write: list):
             print("===================================================================", file=outputFile)
 
 
-def get_data_and_put_in_db(db_cursor: sqlite3.Cursor):
+def get_data_and_put_in_db():
+    messagebox.showinfo('Message', 'You clicked the update button!')
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    dataBaseStuff.delete_tables(db_cursor)  # smelly way to update tables, look for alternative way after
+    dataBaseStuff.create_all_tables(db_cursor)
     top_show_data = api_data.get_top_250_data("TV")
     top_movie_data = api_data.get_top_250_data("Movie")
     top_show_data_for_db = api_data.prepare_top_250_data(top_show_data)
@@ -30,14 +36,24 @@ def get_data_and_put_in_db(db_cursor: sqlite3.Cursor):
     db_ready_ratings_data = api_data.prepare_ratings_for_db(ratings_data)
     dataBaseStuff.put_ratings_into_db(db_ready_ratings_data, db_cursor)
     dataBaseStuff.put_ratings_into_db(big_mover_ratings, db_cursor)
+    connection.commit()
+    connection.close()
 
 
 def main():
-    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
-    dataBaseStuff.delete_tables(db_cursor)  # smelly way to update tables, look for alternative way after
-    dataBaseStuff.create_all_tables(db_cursor)
-    get_data_and_put_in_db(db_cursor)
-    dataBaseStuff.close_db(connection)
+
+    root = Tk()
+    root.title('2022 spring 4')
+    root.geometry("400x400")
+
+    # connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+
+    update_btn = Button(root, text="Update data", command=get_data_and_put_in_db)
+    update_btn.grid(row=11, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+    # get_data_and_put_in_db(db_cursor)
+    # dataBaseStuff.close_db(connection)
+    # gui.root_window().mainloop()
+    root.mainloop()
 
 
 if __name__ == '__main__':
