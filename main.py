@@ -1,8 +1,9 @@
-import sqlite3
 from tkinter import messagebox
 import api_data
 import dataBaseStuff
 from tkinter import *
+import charts
+import matplotlib as plt
 
 
 def report_results(data_to_write: list):
@@ -36,8 +37,31 @@ def get_data_and_put_in_db():
     db_ready_ratings_data = api_data.prepare_ratings_for_db(ratings_data)
     dataBaseStuff.put_ratings_into_db(db_ready_ratings_data, db_cursor)
     dataBaseStuff.put_ratings_into_db(big_mover_ratings, db_cursor)
-    connection.commit()
-    connection.close()
+    dataBaseStuff.close_db(connection)
+
+
+def graph_most_popular_movies_trending_pos():
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    data = charts.prepare_most_popular_movies_trending_pos(db_cursor)
+    charts.build_graph(data)
+
+
+def graph_most_popular_movies_trending_neg():
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    data = charts.prepare_most_popular_movies_trending_neg(db_cursor)
+    charts.build_graph(data)
+
+
+def graph_most_popular_tv_shows_trending_pos():
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    data = charts.prepare_most_popular_tv_shows_trending_pos(db_cursor)
+    charts.build_graph(data)
+
+
+def graph_most_popular_tv_shows_trending_neg():
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    data = charts.prepare_most_popular_tv_shows_trending_neg(db_cursor)
+    charts.build_graph(data)
 
 
 def main():
@@ -46,12 +70,22 @@ def main():
     root.title('2022 spring 4')
     root.geometry("400x400")
 
-    # connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
 
     update_btn = Button(root, text="Update data", command=get_data_and_put_in_db)
     update_btn.grid(row=11, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
-    # get_data_and_put_in_db(db_cursor)
-    # dataBaseStuff.close_db(connection)
+
+    graph_btn = Button(root, text="Graph Most Popular Movies +", command=graph_most_popular_movies_trending_pos)
+    graph_btn.grid(row=12, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+
+    graph_btn = Button(root, text="Graph Most Popular Movies -", command=graph_most_popular_movies_trending_neg)
+    graph_btn.grid(row=13, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+
+    graph_btn = Button(root, text="Graph Most Popular Show +", command=graph_most_popular_tv_shows_trending_pos)
+    graph_btn.grid(row=14, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+
+    graph_btn = Button(root, text="Graph Most Popular Show -", command=graph_most_popular_tv_shows_trending_neg)
+    graph_btn.grid(row=15, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
     # gui.root_window().mainloop()
     root.mainloop()
 
