@@ -3,7 +3,6 @@ import api_data
 import dataBaseStuff
 from tkinter import *
 import charts
-import matplotlib as plt
 
 
 def report_results(data_to_write: list):
@@ -70,8 +69,6 @@ def main():
     root.title('2022 spring 4')
     root.geometry("400x400")
 
-    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
-
     update_btn = Button(root, text="Update data", command=get_data_and_put_in_db)
     update_btn.grid(row=11, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
 
@@ -86,7 +83,6 @@ def main():
 
     graph_btn = Button(root, text="Graph Most Popular Show -", command=graph_most_popular_tv_shows_trending_neg)
     graph_btn.grid(row=15, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
-    # gui.root_window().mainloop()
     root.mainloop()
 
 

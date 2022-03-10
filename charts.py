@@ -1,5 +1,4 @@
 # import numpy as np
-import sqlite3
 import matplotlib.pyplot as plt
 
 
@@ -39,4 +38,3 @@ def build_graph(data):
         tick_label=[data[0] for data in data]
     )
     plt.show()
-
