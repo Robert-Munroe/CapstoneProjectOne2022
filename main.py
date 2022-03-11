@@ -3,6 +3,7 @@ import api_data
 import dataBaseStuff
 from tkinter import *
 import charts
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
 def report_results(data_to_write: list):
@@ -63,26 +64,59 @@ def graph_most_popular_tv_shows_trending_neg():
     charts.build_graph(data)
 
 
+def table_most_popular_movies():
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    data = charts.prepare_most_popular_movies_table(db_cursor)
+    charts.build_table(data)
+
+
+def table_most_popular_shows():
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    data = charts.prepare_most_popular_shows_table(db_cursor)
+    charts.build_table(data)
+
+
+def table_most_popular_movies_in_top():
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    data = charts.prepare_most_popular_movies_in_top_250(connection)
+    charts.build_table(data)
+
+
+def table_most_popular_shows_in_top():
+    connection, db_cursor = dataBaseStuff.open_db("project1db.sqlite")
+    data = charts.prepare_most_popular_shows_in_top_250(connection)
+    charts.build_table(data)
+
+
 def main():
 
     root = Tk()
     root.title('2022 spring 4')
-    root.geometry("400x400")
+    root.geometry("500x500")
 
     update_btn = Button(root, text="Update data", command=get_data_and_put_in_db)
     update_btn.grid(row=11, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
 
+    #  data analysis buttons
     graph_btn = Button(root, text="Graph Most Popular Movies +", command=graph_most_popular_movies_trending_pos)
     graph_btn.grid(row=12, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
-
     graph_btn = Button(root, text="Graph Most Popular Movies -", command=graph_most_popular_movies_trending_neg)
     graph_btn.grid(row=13, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
-
     graph_btn = Button(root, text="Graph Most Popular Show +", command=graph_most_popular_tv_shows_trending_pos)
     graph_btn.grid(row=14, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
-
     graph_btn = Button(root, text="Graph Most Popular Show -", command=graph_most_popular_tv_shows_trending_neg)
     graph_btn.grid(row=15, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+
+    graph_btn = Button(root, text="Display table for most popular movies", command=table_most_popular_movies)
+    graph_btn.grid(row=16, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+    graph_btn = Button(root, text="Display table for most popular shows", command=table_most_popular_shows)
+    graph_btn.grid(row=17, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+    graph_btn = Button(root, text="Display table for popular movies in top 250",
+                       command=table_most_popular_movies_in_top)
+    graph_btn.grid(row=18, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+    graph_btn = Button(root, text="Display table for popular shows in top 250", command=table_most_popular_shows_in_top)
+    graph_btn.grid(row=19, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
+
     root.mainloop()
 
 
