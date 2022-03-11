@@ -8,6 +8,8 @@
 - buttons to display tables of movies and tv shows
 - buttons to graph pos and negative changes of both movies and shows
 - button to show most popular movies and shows in their respective top 250
+- test to make sure the data I get from most popular movies in top 250 movies was
+formatted correctly
 
 4. I have not added:
 - the ability to interact with the table directly
