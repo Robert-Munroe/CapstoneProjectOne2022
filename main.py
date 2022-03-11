@@ -3,7 +3,6 @@ import api_data
 import dataBaseStuff
 from tkinter import *
 import charts
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
 def report_results(data_to_write: list):
