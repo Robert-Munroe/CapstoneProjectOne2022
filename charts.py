@@ -2,13 +2,6 @@
 import matplotlib.pyplot as plt
 
 
-def basic_bar_graph():
-    x = ['a', 'b', 'c', 'd']
-    value = [1, 4, 7, 1]
-    plt.bar(x, value)
-    plt.show()
-
-
 def prepare_most_popular_movies_trending_pos(connection):
     return connection.execute('SELECT title, rankchange FROM most_popular_movies WHERE rankchange >= 0 GROUP BY title;'
                               '').fetchall()
